@@ -16,44 +16,48 @@
 
 using namespace std;
 
+// Représente un compte bancaire avec son id unique, son passcode, et son solde
 struct account {
-	long long id;
-	int passcode;
-	int amount;
+	long long id; 	// Id unique en 16 chiffres, ex : 8800 0000 1234 5678
+	int passcode; 	// Passcode en 4 chiffres
+	int amount; 	// Solde
 };
 
+// Types de transactions
 enum transactionType {
-	deposit = 1,
-	withdraw = 2,
-	transfer = 3
+	deposit = 1, 	// Dépot
+	withdraw = 2, 	// Retrait
+	transfer = 3	// Transfert
 };
 
+// Représente une transaction bancaire avec son id unique, l'id de l'émetteur, l'id du récepteur, le type de transaction et son montant
 struct transaction {
-	long long id;
-	long long fromId;
-	long long toId;
-	transactionType type;
-	int amount;
+	long long id;			// Id unique de la transaction en 16 chiffres, ex : 4444 0000 1234 5678
+	long long fromId;		// Id de l'émetteur
+	long long toId;			// Id du récepteur
+	transactionType type;	// Type de transaction (deposit, withdraw, transfer)
+	int amount;				// Montant
 };
 
-unsigned short int choice = 0;
+unsigned short int choice = 0;	// Choix du menu
 bool doExit = false;
 
-account actualAccount;
+account actualAccount; 	// Compte local actuel
 
-const string ACCOUNTDATABASE("ACCOUNTDATABASE.txt");
-const string TRANSACTIONDATABASE("TRANSACTIONDATABASE.txt");
+const string ACCOUNTDATABASE("ACCOUNTDATABASE.txt");			// Base de données des comptes
+const string TRANSACTIONDATABASE("TRANSACTIONDATABASE.txt");	// Base de données des transactions
 
+// Actions du menu
 enum menuChoice {
-    createAccount = 1,
-	connectAccount =2,
-    dropMoney = 3,
-    takeMoney = 4,
-    transferMoney = 5,
-    checkAmount = 6,
-    checkHistory = 7,
-    closeAccount = 8,
-    close = 9
+    createAccount = 1,	// Créer un compte
+	connectAccount =2,	// Connecter un compte
+    dropMoney = 3,		// Déposer de l'argent
+    takeMoney = 4,		// Retirer de l'argent
+    transferMoney = 5,	// Transferer de l'argent vers un autre compte
+    checkAmount = 6,	// Vérifier le solde du compte
+    checkHistory = 7,	// Vérifier l'histroique des transactions du compte
+    closeAccount = 8,	// Fermer un compte
+    close = 9			// Terminer le programme
 };
 
 void saveAccount(account acc) {
